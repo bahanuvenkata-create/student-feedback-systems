@@ -1,8 +1,13 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useToast } from '../components/Toast';
+import { useActivity } from '../hooks/useActivity';
+import './FeedbackForm.css';
 
 export default function FeedbackForm() {
   const navigate = useNavigate();
+  const { addToast } = useToast();
+  const { addActivity } = useActivity();
   const [formData, setFormData] = useState({
     course: '',
     instructor: '',
@@ -40,7 +45,6 @@ export default function FeedbackForm() {
       ...prev,
       [name]: value
     }));
-    // Clear error for this field when user starts typing
     if (errors[name]) {
       setErrors(prev => ({
         ...prev,
@@ -53,117 +57,122 @@ export default function FeedbackForm() {
     e.preventDefault();
     
     if (validateForm()) {
-      alert(`Feedback submitted successfully!\n\nCourse: ${formData.course}\nInstructor: ${formData.instructor}\nRating: ${formData.rating}/5\n\nThank you for your feedback!`);
+      addActivity('feedback_submitted', `Feedback for ${formData.course}`);
+      addToast(`Feedback submitted for ${formData.course}!`, 'success');
+      
       setFormData({
         course: '',
         instructor: '',
         rating: 5,
         comment: ''
       });
-      setTimeout(() => navigate('/student'), 1000);
+      setTimeout(() => navigate('/student'), 500);
     }
   };
 
   return (
-    <div className="container mt-5">
-      <div className="row">
-        <div className="col-md-8 mx-auto">
-          <h1 className="mb-4">Feedback Form</h1>
-          <p className="text-muted mb-4">Please provide your honest feedback to help us improve.</p>
-          
-          <form onSubmit={handleSubmit} className="card p-4 shadow-sm">
-            {/* Course Selection */}
-            <div className="mb-4">
-              <label htmlFor="course" className="form-label fw-bold">
-                Select Course *
-              </label>
-              <select
-                id="course"
-                name="course"
-                className={`form-select ${errors.course ? 'is-invalid' : ''}`}
-                value={formData.course}
-                onChange={handleChange}
-              >
-                <option value="">-- Choose a course --</option>
-                {courses.map(course => (
-                  <option key={course} value={course}>{course}</option>
-                ))}
-              </select>
-              {errors.course && <div className="invalid-feedback d-block">{errors.course}</div>}
-            </div>
-
-            {/* Instructor Name */}
-            <div className="mb-4">
-              <label htmlFor="instructor" className="form-label fw-bold">
-                Instructor Name *
-              </label>
-              <input
-                type="text"
-                id="instructor"
-                name="instructor"
-                className={`form-control ${errors.instructor ? 'is-invalid' : ''}`}
-                placeholder="Enter instructor name"
-                value={formData.instructor}
-                onChange={handleChange}
-              />
-              {errors.instructor && <div className="invalid-feedback d-block">{errors.instructor}</div>}
-            </div>
-
-            {/* Rating Selection */}
-            <div className="mb-4">
-              <label htmlFor="rating" className="form-label fw-bold">
-                Rating (1-5) *
-              </label>
-              <div className="d-flex gap-2">
-                {[1, 2, 3, 4, 5].map(num => (
-                  <button
-                    key={num}
-                    type="button"
-                    className={`btn ${formData.rating === num ? 'btn-warning' : 'btn-outline-warning'}`}
-                    onClick={() => setFormData(prev => ({ ...prev, rating: num }))}
-                  >
-                    {'⭐'.repeat(num)}
-                  </button>
-                ))}
-              </div>
-              <small className="text-muted d-block mt-2">Selected: {formData.rating}/5 stars</small>
-            </div>
-
-            {/* Comment */}
-            <div className="mb-4">
-              <label htmlFor="comment" className="form-label fw-bold">
-                Your Feedback *
-              </label>
-              <textarea
-                id="comment"
-                name="comment"
-                className={`form-control ${errors.comment ? 'is-invalid' : ''}`}
-                rows="5"
-                placeholder="Share your detailed feedback here..."
-                value={formData.comment}
-                onChange={handleChange}
-              />
-              <small className="text-muted d-block mt-1">
-                {formData.comment.length} / 500 characters
-              </small>
-              {errors.comment && <div className="invalid-feedback d-block">{errors.comment}</div>}
-            </div>
-
-            {/* Buttons */}
-            <div className="d-flex gap-2">
-              <button type="submit" className="btn btn-primary btn-lg">
-                Submit Feedback
-              </button>
-              <button 
-                type="button"
-                className="btn btn-secondary btn-lg"
-                onClick={() => navigate('/student')}
-              >
-                Back to Dashboard
-              </button>
-            </div>
-          </form>
+    <div className="feedback-page">
+      <div className="feedback-container">
+        <div className="form-header">
+          <h1>Share Your Feedback</h1>
+          <p>Help us improve by providing honest feedback about your learning experience</p>
         </div>
+
+        <form onSubmit={handleSubmit} className="feedback-form">
+          {/* Course Selection */}
+          <div className="form-group">
+            <label htmlFor="course" className="form-label">
+              Select Course <span className="required">*</span>
+            </label>
+            <select
+              id="course"
+              name="course"
+              className={`form-control ${errors.course ? 'error' : ''}`}
+              value={formData.course}
+              onChange={handleChange}
+            >
+              <option value="">-- Choose a course --</option>
+              {courses.map(course => (
+                <option key={course} value={course}>{course}</option>
+              ))}
+            </select>
+            {errors.course && <span className="error-message">{errors.course}</span>}
+          </div>
+
+          {/* Instructor Name */}
+          <div className="form-group">
+            <label htmlFor="instructor" className="form-label">
+              Instructor Name <span className="required">*</span>
+            </label>
+            <input
+              type="text"
+              id="instructor"
+              name="instructor"
+              className={`form-control ${errors.instructor ? 'error' : ''}`}
+              placeholder="Enter instructor name"
+              value={formData.instructor}
+              onChange={handleChange}
+            />
+            {errors.instructor && <span className="error-message">{errors.instructor}</span>}
+          </div>
+
+          {/* Rating Selection */}
+          <div className="form-group">
+            <label className="form-label">
+              Rate Your Experience <span className="required">*</span>
+            </label>
+            <div className="rating-container">
+              {[1, 2, 3, 4, 5].map(num => (
+                <button
+                  key={num}
+                  type="button"
+                  className={`rating-btn ${formData.rating === num ? 'active' : ''}`}
+                  onClick={() => setFormData(prev => ({ ...prev, rating: num }))}
+                  title={`${num} star${num > 1 ? 's' : ''}`}
+                >
+                  {'⭐'.repeat(num)}
+                </button>
+              ))}
+            </div>
+            <p className="rating-label">Selected: <strong>{formData.rating}/5 stars</strong></p>
+          </div>
+
+          {/* Comment */}
+          <div className="form-group">
+            <label htmlFor="comment" className="form-label">
+              Your Detailed Feedback <span className="required">*</span>
+            </label>
+            <textarea
+              id="comment"
+              name="comment"
+              className={`form-control ${errors.comment ? 'error' : ''}`}
+              rows="6"
+              placeholder="Share your detailed feedback here... What went well? What could be improved?"
+              value={formData.comment}
+              onChange={handleChange}
+            />
+            <div className="char-counter">
+              <span className={formData.comment.length > 500 ? 'error' : ''}>
+                {formData.comment.length} / 500 characters
+              </span>
+            </div>
+            {errors.comment && <span className="error-message">{errors.comment}</span>}
+          </div>
+
+          {/* Buttons */}
+          <div className="form-buttons">
+            <button type="submit" className="btn-primary">
+              Submit Feedback
+            </button>
+            <button 
+              type="button"
+              className="btn-secondary"
+              onClick={() => navigate('/student')}
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );

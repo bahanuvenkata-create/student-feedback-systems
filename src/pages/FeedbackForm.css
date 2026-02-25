@@ -1,0 +1,230 @@
+.feedback-page {
+  min-height: 100vh;
+  padding-top: 90px;
+  background-color: var(--bg-primary);
+}
+
+.feedback-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: 40px;
+  animation: slideInUp 0.5s ease-out;
+}
+
+.form-header h1 {
+  margin-bottom: 12px;
+}
+
+.form-header p {
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+}
+
+.feedback-form {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 40px;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.form-group {
+  margin-bottom: 32px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 1rem;
+}
+
+.required {
+  color: #ef4444;
+  font-weight: 700;
+}
+
+.form-control {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 1rem;
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: 1.5px solid var(--border-color);
+  border-radius: 10px;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  resize: vertical;
+}
+
+.form-control::placeholder {
+  color: var(--text-tertiary);
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(91, 124, 250, 0.1);
+  background-color: var(--bg-tertiary);
+}
+
+.form-control.error {
+  border-color: #ef4444;
+}
+
+.form-control.error:focus {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.error-message {
+  display: block;
+  color: #ef4444;
+  font-size: 0.85rem;
+  margin-top: 8px;
+  font-weight: 500;
+}
+
+/* Rating Section */
+.rating-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.rating-btn {
+  padding: 12px 16px;
+  background-color: var(--bg-tertiary);
+  border: 2px solid var(--border-color);
+  border-radius: 10px;
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 600;
+}
+
+.rating-btn:hover {
+  border-color: var(--accent-primary);
+  background-color: var(--bg-hover);
+  transform: scale(1.05);
+}
+
+.rating-btn.active {
+  background: var(--gradient-primary);
+  border-color: var(--accent-primary);
+  color: white;
+  box-shadow: 0 0 20px rgba(91, 124, 250, 0.3);
+}
+
+.rating-label {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.rating-label strong {
+  color: var(--accent-primary);
+}
+
+/* Character Counter */
+.char-counter {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+  font-size: 0.85rem;
+  color: var(--text-tertiary);
+}
+
+.char-counter .error {
+  color: #ef4444;
+  font-weight: 600;
+}
+
+/* Form Buttons */
+.form-buttons {
+  display: flex;
+  gap: 14px;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-color);
+}
+
+.btn-primary {
+  flex: 1;
+  padding: 14px 24px;
+  background: var(--gradient-primary);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(91, 124, 250, 0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(91, 124, 250, 0.4);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  flex: 1;
+  padding: 14px 24px;
+  background-color: transparent;
+  color: var(--accent-primary);
+  border: 1.5px solid var(--accent-primary);
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: var(--accent-primary);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.btn-secondary:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 600px) {
+  .feedback-container {
+    padding: 20px 12px;
+  }
+
+  .feedback-form {
+    padding: 24px;
+  }
+
+  .form-buttons {
+    flex-direction: column;
+  }
+
+  .rating-container {
+    gap: 8px;
+  }
+
+  .rating-btn {
+    flex: 1;
+    padding: 10px 8px;
+    font-size: 0.9rem;
+  }
+
+  .form-group {
+    margin-bottom: 24px;
+  }
+}

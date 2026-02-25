@@ -1,55 +1,19 @@
-.login-page {
-  position: relative;
-  width: 100%;
+.signup-page {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   background: var(--bg-primary);
-  overflow: hidden;
   padding: 20px;
   animation: fadeIn 0.3s ease-out;
 }
 
-.login-page::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  right: -10%;
-  width: 600px;
-  height: 600px;
-  background: linear-gradient(135deg, rgba(91, 124, 250, 0.2) 0%, rgba(124, 58, 237, 0.2) 100%);
-  border-radius: 50%;
-  filter: blur(80px);
-  z-index: 0;
-}
-
-.login-page::after {
-  content: '';
-  position: absolute;
-  bottom: -30%;
-  left: -10%;
-  width: 500px;
-  height: 500px;
-  background: linear-gradient(135deg, rgba(124, 58, 237, 0.15) 0%, rgba(236, 72, 153, 0.15) 100%);
-  border-radius: 50%;
-  filter: blur(80px);
-  z-index: 0;
-}
-
-.login-container {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.signup-container {
   width: 100%;
   max-width: 450px;
 }
 
-.login-card {
-  width: 100%;
+.signup-card {
   background: var(--bg-secondary);
   border: 1px solid var(--border-color);
   border-radius: 16px;
@@ -58,31 +22,25 @@
   animation: slideInUp 0.5s ease-out;
 }
 
-/* Header */
-.login-header {
-  text-align: center;
+.signup-header {
   margin-bottom: 32px;
+  text-align: center;
 }
 
-.login-card h1 {
-  color: var(--text-primary);
+.signup-header h1 {
   font-size: 1.8rem;
   font-weight: 700;
+  color: var(--text-primary);
   margin-bottom: 8px;
-  background: var(--gradient-primary);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 
-.login-subtitle {
+.signup-header p {
   color: var(--text-secondary);
-  font-size: 0.95rem;
-  line-height: 1.5;
+  font-size: 1rem;
 }
 
 /* Form Styles */
-.login-form {
+.signup-form {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -101,6 +59,10 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+}
+
+.required {
+  color: #ef4444;
 }
 
 .form-control {
@@ -138,43 +100,38 @@
   font-weight: 500;
 }
 
-/* Login Button */
-.btn-login {
+/* Buttons */
+.btn-signup {
   background: var(--gradient-primary);
   color: white;
+  border: none;
+  border-radius: 8px;
   padding: 14px 20px;
   font-size: 1rem;
   font-weight: 600;
-  border: none;
-  border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 12px rgba(91, 124, 250, 0.3);
 }
 
-.btn-login:hover:not(:disabled) {
+.btn-signup:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(91, 124, 250, 0.4);
 }
 
-.btn-login:active:not(:disabled) {
+.btn-signup:active {
   transform: translateY(0);
 }
 
-.btn-login:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
-
-/* Login Footer */
-.login-footer {
+/* Auth Footer */
+.auth-footer {
   text-align: center;
   margin-bottom: 24px;
   padding: 20px 0;
   border-top: 1px solid var(--border-color);
 }
 
-.login-footer p {
+.auth-footer p {
   color: var(--text-secondary);
   font-size: 0.95rem;
   margin-bottom: 8px;
@@ -193,101 +150,69 @@
   transform: translateX(4px);
 }
 
-/* Demo Section */
-.demo-section {
+/* Demo Info */
+.demo-info {
   background: var(--bg-tertiary);
   border: 1px solid var(--border-color);
   border-radius: 8px;
   padding: 16px;
+  text-align: center;
 }
 
 .demo-title {
   color: var(--text-secondary);
   font-size: 0.85rem;
   font-weight: 600;
+  margin-bottom: 12px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  margin-bottom: 12px;
-  text-align: center;
 }
 
-.demo-grid {
+.demo-accounts {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 12px;
+  gap: 12px;
 }
 
-.demo-card {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: 6px;
-  padding: 10px;
+.demo-account {
   display: flex;
   flex-direction: column;
   gap: 6px;
+  padding: 10px;
+  background: var(--bg-secondary);
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
 }
 
-.demo-card.student {
-  border-left: 3px solid var(--accent-primary);
-}
-
-.demo-card.admin {
-  border-left: 3px solid var(--accent-tertiary);
-}
-
-.demo-label {
-  font-size: 0.75rem;
+.account-role {
+  color: var(--accent-primary);
+  font-size: 0.8rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
-.demo-card.student .demo-label {
-  color: var(--accent-primary);
-}
-
-.demo-card.admin .demo-label {
-  color: var(--accent-tertiary);
-}
-
-.demo-credential {
-  background: var(--bg-tertiary);
-  border: 1px solid var(--border-color);
+.demo-account code {
   color: var(--text-secondary);
-  padding: 6px 8px;
-  border-radius: 4px;
   font-size: 0.75rem;
   font-family: 'Monaco', 'Courier New', monospace;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  text-align: center;
-}
-
-.demo-credential:hover {
-  background: var(--bg-secondary);
-  border-color: var(--accent-primary);
-  color: var(--text-primary);
-}
-
-.demo-hint {
-  color: var(--text-secondary);
-  font-size: 0.8rem;
-  text-align: center;
-  margin: 0;
+  background: var(--bg-tertiary);
+  padding: 4px 6px;
+  border-radius: 4px;
+  display: block;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-  .login-card {
+  .signup-card {
     padding: 30px 20px;
   }
 
-  .login-card h1 {
+  .signup-header h1 {
     font-size: 1.5rem;
   }
 
-  .demo-grid {
+  .demo-accounts {
     grid-template-columns: 1fr;
   }
 }
@@ -309,3 +234,5 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
